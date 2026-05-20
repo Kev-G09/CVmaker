@@ -1,0 +1,57 @@
+[
+  {
+    "model": "core.skill",
+    "pk": 1,
+    "fields": { "description": "Python" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 3,
+    "fields": { "description": "JavaScript" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 6,
+    "fields": { "description": "Git" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 7,
+    "fields": { "description": "Metodologías Ágiles" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 8,
+    "fields": { "description": "Docker" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 9,
+    "fields": { "description": "Kubernetes" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 10,
+    "fields": { "description": "AWS" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 11,
+    "fields": { "description": "TypeScript" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 12,
+    "fields": { "description": "Node.js" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 13,
+    "fields": { "description": "PostgreSQL" }
+  },
+  {
+    "model": "core.skill",
+    "pk": 14,
+    "fields": { "description": "MongoDB" }
+  }
+]

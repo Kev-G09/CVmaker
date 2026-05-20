@@ -1,0 +1,42 @@
+[
+  {
+    "model": "core.languages",
+    "pk": 1,
+    "fields": { "description": "Español" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 2,
+    "fields": { "description": "Inglés" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 3,
+    "fields": { "description": "Francés" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 4,
+    "fields": { "description": "Alemán" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 5,
+    "fields": { "description": "Portugués" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 6,
+    "fields": { "description": "Italiano" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 7,
+    "fields": { "description": "Ruso" }
+  },
+  {
+    "model": "core.languages",
+    "pk": 9,
+    "fields": { "description": "Chino Mandarín" }
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "model": "core.academicfield",
+    "pk": 1,
+    "fields": { "description": "Ingeniería de Sistemas" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 2,
+    "fields": { "description": "Ingeniería Civil" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 3,
+    "fields": { "description": "Medicina" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 4,
+    "fields": { "description": "Derecho" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 5,
+    "fields": { "description": "Administración de Empresas" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 6,
+    "fields": { "description": "Arquitectura" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 7,
+    "fields": { "description": "Contaduría Pública" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 8,
+    "fields": { "description": "Mercadotecnia" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 9,
+    "fields": { "description": "Psicología" }
+  },
+  {
+    "model": "core.academicfield",
+    "pk": 10,
+    "fields": { "description": "Comunicación Social" }
+  }
+]

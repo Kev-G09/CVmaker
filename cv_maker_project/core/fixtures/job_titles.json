@@ -1,0 +1,83 @@
+[
+  {
+    "model": "core.jobtitle",
+    "pk": 1,
+    "fields": {
+      "name": "Desarrollador Full Stack",
+      "description": "Responsable del desarrollo frontend y backend de aplicaciones web",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 2,
+    "fields": {
+      "name": "Arquitecto de Software",
+      "description": "Diseña la arquitectura de sistemas complejos",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 3,
+    "fields": {
+      "name": "Administrador de Bases de Datos",
+      "description": "Gestiona y optimiza bases de datos",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 4,
+    "fields": {
+      "name": "DevOps Engineer",
+      "description": "Automatiza despliegues y gestiona infraestructura",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 5,
+    "fields": {
+      "name": "Scrum Master",
+      "description": "Facilita procesos ágiles en el equipo de desarrollo",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 7,
+    "fields": {
+      "name": "QA Tester",
+      "description": "Realiza pruebas de calidad de software",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 8,
+    "fields": {
+      "name": "Analista de Datos",
+      "description": "Analiza datos y genera reportes para toma de decisiones",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 9,
+    "fields": {
+      "name": "Desarrollador Frontend",
+      "description": "Especialista en interfaces de usuario y experiencia",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.jobtitle",
+    "pk": 10,
+    "fields": {
+      "name": "Desarrollador Backend",
+      "description": "Especialista en lógica de negocio y APIs",
+      "is_active": true
+    }
+  }
+]
