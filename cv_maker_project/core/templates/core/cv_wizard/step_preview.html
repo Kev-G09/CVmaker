@@ -1,0 +1,161 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Previsualización de CV{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="wizard-step">
+        {% for i, name in step_names.items %}
+        <div class="step {% if forloop.counter0 < 5 %}completed{% elif forloop.counter0 == 5 %}active{% endif %}">
+            <div class="step-circle">
+                {% if forloop.counter0 < 5 %}
+                    <i class="fas fa-check"></i>
+                {% else %}
+                    {{ forloop.counter }}
+                {% endif %}
+            </div>
+            <div class="step-label">{{ name|truncatechars:20 }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="cv-preview">
+                <!-- Encabezado -->
+                <div class="cv-header">
+                    <h2>{{ wizard.form.cleaned_data.0.first_name }} {{ wizard.form.cleaned_data.0.last_name }}</h2>
+                    <p class="text-muted">
+                        <i class="fas fa-envelope"></i> {{ wizard.form.cleaned_data.0.email }}
+                        {% if wizard.form.cleaned_data.0.phone %}
+                        | <i class="fas fa-phone"></i> {{ wizard.form.cleaned_data.0.phone }}
+                        {% endif %}
+                    </p>
+
+                    {% if wizard.form.cleaned_data.0.linkedin_url or wizard.form.cleaned_data.0.github_url %}
+                    <div>
+                        {% if wizard.form.cleaned_data.0.linkedin_url %}
+                        <a href="{{ wizard.form.cleaned_data.0.linkedin_url }}" target="_blank" class="btn btn-sm btn-outline-primary m-1">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        {% endif %}
+
+                        {% if wizard.form.cleaned_data.0.github_url %}
+                        <a href="{{ wizard.form.cleaned_data.0.github_url }}" target="_blank" class="btn btn-sm btn-outline-dark m-1">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Historial Académico -->
+                {% if wizard.form.cleaned_data.1.institution_name %}
+                <div class="cv-section">
+                    <h5 class="cv-section-title">Formación Académica</h5>
+                    <div class="cv-item">
+                        <strong>{{ wizard.form.cleaned_data.1.degree_id.description }}</strong>
+                        en {{ wizard.form.cleaned_data.1.academic_field_id.description }}
+                        <br>
+                        <em>{{ wizard.form.cleaned_data.1.institution_name }}</em>
+                        <br>
+                        <small class="text-muted">
+                            {% if wizard.form.cleaned_data.1.start_date %}
+                                {{ wizard.form.cleaned_data.1.start_date|date:"M Y" }}
+                            {% endif %}
+                            -
+                            {% if wizard.form.cleaned_data.1.end_date %}
+                                {{ wizard.form.cleaned_data.1.end_date|date:"M Y" }}
+                            {% else %}
+                                Actual
+                            {% endif %}
+                        </small>
+
+                        {% if wizard.form.cleaned_data.1.speciality %}
+                        <br><small>Especialidad: {{ wizard.form.cleaned_data.1.speciality }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Experiencia Laboral -->
+                {% if wizard.form.cleaned_data.2.enterprise_name %}
+                <div class="cv-section">
+                    <h5 class="cv-section-title">Experiencia Laboral</h5>
+                    <div class="cv-item">
+                        <strong>{{ wizard.form.cleaned_data.2.enterprise_name }}</strong>
+                        {% if wizard.form.cleaned_data.2.job_title_id %}
+                        - {{ wizard.form.cleaned_data.2.job_title_id.name }}
+                        {% endif %}
+                        <br>
+
+                        <small class="text-muted">
+                            {{ wizard.form.cleaned_data.2.start_date|date:"M Y" }} -
+                            {% if wizard.form.cleaned_data.2.end_date %}
+                                {{ wizard.form.cleaned_data.2.end_date|date:"M Y" }}
+                            {% else %}
+                                Actualidad
+                            {% endif %}
+                        </small>
+
+                        {% if wizard.form.cleaned_data.2.description %}
+                        <p class="mt-2">{{ wizard.form.cleaned_data.2.description }}</p>
+                        {% endif %}
+
+                        {% if wizard.form.cleaned_data.2.achievement %}
+                        <p><strong>Logro destacado:</strong> {{ wizard.form.cleaned_data.2.achievement }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Habilidades -->
+                {% if wizard.form.cleaned_data.3.skills %}
+                <div class="cv-section">
+                    <h5 class="cv-section-title">Habilidades Técnicas</h5>
+                    <div>
+                        {% for skill in wizard.form.cleaned_data.3.skills %}
+                            <span class="badge bg-primary m-1 p-2">{{ skill.description }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Idiomas -->
+                {% if wizard.form.cleaned_data.4.languages %}
+                <div class="cv-section">
+                    <h5 class="cv-section-title">Idiomas</h5>
+                    <div>
+                        {% for lang in wizard.form.cleaned_data.4.languages %}
+                            <span class="badge bg-secondary m-1 p-2">{{ lang.description }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Botones de navegación -->
+            <div class="d-flex justify-content-between mt-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ wizard.management_form }}
+                    <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}"
+                            class="btn btn-cv-outline">
+                        <i class="fas fa-arrow-left"></i> Volver a Editar
+                    </button>
+                </form>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ wizard.management_form }}
+                    <button type="submit" class="btn btn-cv-primary">
+                        <i class="fas fa-save"></i> Guardar CV
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

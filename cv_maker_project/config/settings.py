@@ -3,19 +3,26 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTALLED_APPS = [
-'django.contrib.admin',
-'django.contrib.auth',
-'django.contrib.contenttypes',
-'django.contrib.messages',
-'django.contrib.sessions',
-'django.contrib.staticfiles',
-'core',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.staticfiles',
+    
+    # Registramos formtools para que funcione el Wizard de la guía
+    'formtools',
+    
+    'core',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django-middleware.common.CommonMiddleware',
+    
+    # ¡Corregido el guion por el punto aquí abajo!
+    'django.middleware.common.CommonMiddleware',
+    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
@@ -35,7 +42,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 DATABASES = {
     'default':{

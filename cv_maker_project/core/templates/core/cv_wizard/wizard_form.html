@@ -1,0 +1,140 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Crear CV - Paso {{ current_step }} de {{ total_steps }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Wizard Steps -->
+    <div class="wizard-step">
+        {% for i, name in step_names.items %}
+            <div class="step {% if forloop.counter0 < current_step %}completed{% elif forloop.counter0 == current_step|add:"-1" %}active{% endif %}">
+                <div class="step-circle">
+                    {% if forloop.counter0 < current_step|add:"-1" %}
+                        <i class="fas fa-check"></i>
+                    {% else %}
+                        {{ forloop.counter }}
+                    {% endif %}
+                </div>
+                <div class="step-label">{{ name|truncatechars:20 }}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress mb-4" style="height: 8px;">
+        <div class="progress-bar"
+         role="progressbar" 
+         style="width: {{ progress_percentage }}%; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card-cv">
+                <div class="card-header-cv">
+                    <h4 class="mb-0">
+                        <i class="fas fa-edit me-2"></i>{{ step_title }}
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ wizard.management_form }}
+
+                        {% if wizard.form.forms %}
+                            <!-- Para formsets (si se implementan en el futuro) -->
+                            {{ wizard.form.management_form }}
+                            {% for form in wizard.form.forms %}
+                                <div class="form-group mb-3">
+                                    {{ form.as_p }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <!-- Formulario normal -->
+                            {% for field in wizard.form %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label">
+                                        {{ field.label }}
+                                        {% if field.field.required %}
+                                            <span class="text-danger">*</span>
+                                        {% endif %}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- Botones de navegación -->
+<div class="d-flex justify-content-between mt-4">
+    {% if wizard.steps.prev %}
+        <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}"
+                class="btn btn-cv-outline">
+            <i class="fas fa-arrow-left"></i> Anterior
+        </button>
+    {% else %}
+        <div></div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-cv-primary">
+        {% if wizard.steps.current == wizard.steps.last %}
+            <i class="fas fa-check-circle"></i> Finalizar y Guardar
+        {% else %}
+            <i class="fas fa-arrow-right"></i> Siguiente
+        {% endif %}
+    </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Agregar clases de Bootstrap a los campos del formulario automáticamente
+    document.addEventListener('DOMContentLoaded', function() {
+        var inputs = document.querySelectorAll('input:not([type="checkbox"]), select, textarea');
+        inputs.forEach(function(input) {
+            if (!input.classList.contains('form-control') && !input.classList.contains('form-select')) {
+                if (input.type === 'checkbox') {
+                    input.classList.add('form-check-input');
+                } else if (input.type === 'select') {
+                    input.classList.add('form-select');
+                } else {
+                    input.classList.add('form-control');
+                }
+            }
+        });
+
+        // Checkbox específicos
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(cb) {
+            var parent = cb.parentElement;
+            if (parent && parent.tagName === 'DIV') {
+                parent.classList.add('form-check');
+            }
+
+            cb.classList.add('form-check-input');
+
+            if (cb.nextSibling && cb.nextSibling.nodeType === 3) {
+                var label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.innerHTML = cb.nextSibling.textContent;
+
+                cb.nextSibling.remove();
+                cb.parentNode.insertBefore(label, cb.nextSibling);
+            }
+        });
+    });
+</script>
+{% endblock %}
