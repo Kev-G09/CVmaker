@@ -20,8 +20,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
+                <ul class="navbar-nav ms-auto align-items-lg-center"> <li class="nav-item">
                         <a class="nav-link" href="{% url 'core:home' %}"><i class="fas fa-home"></i> Inicio</a>
                     </li>
                     {% if user.is_authenticated %}
@@ -35,9 +34,9 @@
                             <a class="nav-link" href="{% url 'core:profile' %}"><i class="fas fa-user"></i> Mi Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <form method="post" action="{% url 'core:logout' %}" class="d-inline">
+                            <form method="post" action="{% url 'core:logout' %}" class="d-inline m-0 p-0">
                                 {% csrf_token %}
-                                <button type="submit" class="btn nav-link" style="background: none; border: none;">
+                                <button type="submit" class="nav-link btn btn-link d-inline p-0 ms-lg-3" style="color: inherit; text-decoration: none; border: none; background: none; font: inherit; vertical-align: middle;">
                                     <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
                                 </button>
                             </form>

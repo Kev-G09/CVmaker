@@ -25,11 +25,12 @@ class UserRegistrationForm(UserCreationForm):
             user.save()
         return user
 
+
 class UserProfileForm(forms.ModelForm):
     """Formulario de perfil de usuario"""
     class Meta:
         model = UserProfile
-        fields = ['phone', 'address', 'birth_date', 'professional_summary', 'linkedin_url', 'github_url', 'personal_website']
+        fields = ['phone', 'address', 'birth_date', 'professional_summary', 'linkedin_url', 'github_url', 'personal_website', 'photo']
         widgets = {
             'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+505 8888-7777'}),
@@ -38,6 +39,7 @@ class UserProfileForm(forms.ModelForm):
             'linkedin_url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://linkedin.com/in/usuario'}),
             'github_url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://github.com/usuario'}),
             'personal_website': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://www.usuario.com'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 class PersonalInfoForm(forms.Form):
@@ -49,21 +51,29 @@ class PersonalInfoForm(forms.Form):
     professional_summary = forms.CharField(required=False, label="Resumen Profesional", widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4}))
     linkedin_url = forms.URLField(required=False, label="LinkedIn", widget=forms.URLInput(attrs={'class': 'form-control'}))
     github_url = forms.URLField(required=False, label="GitHub", widget=forms.URLInput(attrs={'class': 'form-control'}))
+    
+    photo = forms.ImageField(
+    required=False,
+    label="Foto de Perfil",
+    widget=forms.FileInput(attrs={'class': 'form-control'})
+)
 
-    class AcademicHistoryForm(forms.ModelForm):
-      """Formulario de historial académico (Paso 2 del wizard)"""
+
+class AcademicHistoryForm(forms.ModelForm):
+    """Formulario de historial académico (Paso 2 del wizard)"""
     class Meta:
         model = AcademicHistory
-        fields = ['institution_name', 'specialty', 'degree_id', 'academic_field_id', 'start_date', 'end_date']
+        # Cambiado a 'speciality' con "i"
+        fields = ['institution_name', 'speciality', 'degree_id', 'academic_field_id', 'start_date', 'end_date']
         widgets = {
             'institution_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'specialty': forms.TextInput(attrs={'class': 'form-control'}),
+            # Cambiado a 'speciality' con "i"
+            'speciality': forms.TextInput(attrs={'class': 'form-control'}),
             'degree_id': forms.Select(attrs={'class': 'form-select'}),
             'academic_field_id': forms.Select(attrs={'class': 'form-select'}),
             'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['degree_id'].queryset = Degrees.objects.all()
@@ -79,9 +89,10 @@ class PersonalInfoForm(forms.Form):
         if start_date and end_date and end_date < start_date:
             self.add_error('end_date', 'La fecha de finalización no puede ser anterior a la fecha de inicio')
         return cleaned_data
-    
-    class WorkExperienceForm(forms.ModelForm):
-     """Formulario de experiencia laboral (Paso 3 del wizard)"""
+
+
+class WorkExperienceForm(forms.ModelForm):
+    """Formulario de experiencia laboral (Paso 3 del wizard)"""
     class Meta:
         model = WorkExperiences
         fields = ['enterprise_name', 'job_title_id', 'description', 'achievement', 'start_date', 'end_date']
@@ -107,9 +118,10 @@ class PersonalInfoForm(forms.Form):
         if start_date and end_date and end_date < start_date:
             self.add_error('end_date', 'La fecha de finalización no puede ser anterior a la fecha de inicio')
         return cleaned_data
-    
-    class SkillsForm(forms.Form):
-     """Formulario de habilidades (Paso 4 del wizard)"""
+
+
+class SkillsForm(forms.Form):
+    """Formulario de habilidades (Paso 4 del wizard)"""
     skills = forms.ModelMultipleChoiceField(
         queryset=Skill.objects.all(),
         required=False,
@@ -120,6 +132,7 @@ class PersonalInfoForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         pass
+
 
 class LanguagesForm(forms.Form):
     """Formulario de idiomas (Paso 5 del wizard)"""

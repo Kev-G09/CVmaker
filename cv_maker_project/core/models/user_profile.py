@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     address = models.TextField(blank=True, null=True, verbose_name="Dirección")
     birth_date = models.DateField(null=True, blank=True, verbose_name="Fecha de nacimiento")
     professional_summary = models.TextField(blank=True, null=True, verbose_name="Resumen profesional")
-    photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True, verbose_name="Foto")
+    photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True, verbose_name="Foto de perfil")
     
     # Redes sociales
     linkedin_url = models.URLField(blank=True, null=True, verbose_name="LinkedIn")

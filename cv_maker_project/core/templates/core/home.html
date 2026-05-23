@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}CVMaker - Crea tu Hoja de Vida Profesional{% endblock %}
+
+{% block content %}
+<div class="hero bg-primary text-white py-5" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+    <div class="container text-center py-5">
+        <h1 class="display-4 fw-bold">CVMaker</h1>
+        <p class="lead">Crea hojas de vida profesionales en minutos de forma fácil y rápida</p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'core:register' %}" class="btn btn-light btn-lg mt-3">
+            <i class="fas fa-user-plus"></i> Comienza Ahora
+        </a>
+        {% else %}
+        <a href="{% url 'core:cv_create' %}" class="btn btn-light btn-lg mt-3">
+            <i class="fas fa-plus-circle"></i> Crear Nuevo CV
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Mis Currículums Vitae</h2>
+        <a href="{% url 'core:cv_create' %}" class="btn btn-primary">+ Crear Nuevo CV</a>
+    </div>
+    <hr>
+    
+    <div class="row">
+        {% for profile in profiles %}
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title text-dark fw-bold mb-3">
+                                {{ profile.user.first_name }} {{ profile.user.last_name }}
+                            </h5>
+                            
+                            {% if profile.ultima_experiencia %}
+                                <h6 class="card-subtitle mb-2 text-primary fw-semibold">
+                                    Empresa: {{ profile.ultima_experiencia.enterprise_name }}
+                                </h6>
+                                
+                                <p class="text-muted mb-1 small">
+                                    <strong>Especialidad:</strong> {{ profile.ultima_experiencia.job_title_id.name }}
+                                </p>
+                                
+                                <p class="card-text text-muted extra-small" style="font-size: 0.75rem;">
+                                    <strong>Última actualización:</strong> {{ profile.ultima_experiencia.start_date|date:"d/m/Y" }}
+                                </p>
+                            {% else %}
+                                <p class="text-muted small italic">Sin experiencia laboral registrada.</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mt-3">
+                            <a href="{% url 'core:cv_detail' profile.user.id %}" class="btn btn-outline-primary btn-sm w-100">
+                                Ver Perfil Completo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center mt-5">
+                <p class="text-muted">Aún no hay ningún Currículum Vitae registrado en el sistema.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                {% endif %}
+                <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+{% endblock %}

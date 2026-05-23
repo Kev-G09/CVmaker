@@ -8,3 +8,4 @@ from .skill import Skill
 from .user_skill import UserSkill
 from .work_experiences import WorkExperiences
 from .user_profile import UserProfile 
+from .curriculum import Curriculum

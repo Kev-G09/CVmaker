@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Editar Perfil</h2>
+    <hr>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+{% if user.profile.photo %}
+<div class="text-center mb-4">
+    <img src="{{ user.profile.photo.url }}"
+         alt="Foto de perfil"
+         class="rounded-circle shadow"
+         style="width: 150px; height: 150px; object-fit: cover;">
+</div>
+{% endif %}
+
+        {{ form.as_p }}
+        
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+            <a href="{% url 'core:profile' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
